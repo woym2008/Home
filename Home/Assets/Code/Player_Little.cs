@@ -52,4 +52,13 @@ public abstract class Player_Little : MonoBehaviour
 
         }
     }
+
+    public void SetChildActive(bool bset)
+    {
+        if (m_Child != null)
+        {
+            m_Child.SetChildActive(bset);
+        }
+        this.gameObject.SetActive(bset);
+    }
 }

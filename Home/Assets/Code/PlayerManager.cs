@@ -107,6 +107,7 @@ public class PlayerManager : MonoBehaviour {
         for (int i = 0; i < m_Players.Count; ++i)
         {
             m_Players[i].GotoWork();
+            m_Players[i].CreateChild();
         }
         m_bCanBecameHome = false;
     }

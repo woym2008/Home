@@ -140,12 +140,14 @@ public abstract class PlayerBase : MonoBehaviour {
     {
         m_bWorking = false;
         this.gameObject.SetActive(false);
+        SetChildActive(false);
     }
 
     public void GotoWork()
     {
         m_bWorking = true;
         this.gameObject.SetActive(true);
+        SetChildActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -194,11 +196,20 @@ public abstract class PlayerBase : MonoBehaviour {
         ;
     }
 
+    public void SetChildActive(bool bset)
+    {
+        if (m_Child != null)
+        {
+            m_Child.SetChildActive(bset);
+        }
+    }
+
     protected void Die()
     {
         m_bIsAlive = true;
         m_bWorking = false;
         this.gameObject.SetActive(false);
+        SetChildActive(false);
         PlayDieAnimation();
         PlayDieSound();
     }
