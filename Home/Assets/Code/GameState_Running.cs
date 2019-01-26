@@ -4,6 +4,8 @@ using Common.Fsm;
 
 public class GameState_Running : FSMState<GameManager>
 {
+    private float m_HomeCoolDownTime;
+
     protected internal override void OnInit(IFSM<GameManager> fsm)
     {
         base.OnInit(fsm);
@@ -15,9 +17,7 @@ public class GameState_Running : FSMState<GameManager>
     {
         base.OnEnter(fsm);
 
-        PlayerManager.m_Instance.CreatePlayers();
-
-        EnemyManager.m_Instance.InitEnemyManager();
+        m_HomeCoolDownTime = GameConfig.BecameHomeCooldown;
 
         //SoundManager
     }
@@ -33,6 +33,14 @@ public class GameState_Running : FSMState<GameManager>
     {
         base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
 
+        if(m_HomeCoolDownTime > 0)
+        {
+            m_HomeCoolDownTime -= elapseSeconds;
+        }
+        else 
+        {
+            PlayerManager.m_Instance.SetBecameHome(true);
+        }
     }
 
     protected internal override void OnDestroy(IFSM<GameManager> fsm)
@@ -42,6 +50,6 @@ public class GameState_Running : FSMState<GameManager>
 
     public void OnBecameHome(IFSM<GameManager> fSM, object sender, object data)
     {
-        ChangeState<GameState_Ready>(fSM);
+        ChangeState<GameState_Home>(fSM);
     }
 }

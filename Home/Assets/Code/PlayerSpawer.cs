@@ -19,6 +19,8 @@ public class PlayerSpawer : MonoBehaviour
 
     public PlayerBase CreatePlayer()
     {
-        return (Instantiate(PlayerPrefab) as GameObject).GetComponent<PlayerBase>();
+        PlayerBase pPlayer = (Instantiate(PlayerPrefab) as GameObject).GetComponent<PlayerBase>();
+        pPlayer.transform.position = this.gameObject.transform.position;
+        return pPlayer;
     }
 }

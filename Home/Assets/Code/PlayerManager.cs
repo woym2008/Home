@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour {
 
     public GameObject HomePrefab;
 
+    bool m_bCanBecameHome;
+
 	private void Awake()
 	{
         m_Instance = this;
@@ -20,6 +22,7 @@ public class PlayerManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         FindObjects();
+        m_bCanBecameHome = false;
 	}
 	
 	// Update is called once per frame
@@ -33,9 +36,19 @@ public class PlayerManager : MonoBehaviour {
 
     public void GameUpdate(float dt)
     {
+        int diecount = 0;
         for (int i = 0; i < m_Players.Count;++i)
         {
+            if(!m_Players[i].IsAlive)
+            {
+                diecount++;
+                continue;
+            }
             m_Players[i].GameUpdate(dt);
+        }
+        if(diecount == m_Players.Count)
+        {
+            GameManager.m_Instance.GameOver();
         }
 
         m_Home.GameUpdate(dt);
@@ -65,14 +78,37 @@ public class PlayerManager : MonoBehaviour {
         m_Home = (Instantiate(HomePrefab) as GameObject).gameObject.GetComponent<HomeObject>();
     }
 
+    public void SetBecameHome(bool bSet)
+    {
+        m_bCanBecameHome = bSet;
+    }
+
     public void BecameHome()
     {
-        
+        if(m_bCanBecameHome)
+        {
+            Vector3 homeposition = Vector3.zero;
+            for (int i = 0; i < m_Players.Count; ++i)
+            {
+                homeposition += m_Players[i].transform.position;
+
+                m_Players[i].Sleep();
+            }
+            homeposition = homeposition * 0.5f;
+            m_Home.transform.position = homeposition;
+            m_Home.ShowTime();
+            GameManager.m_Instance.BecameHome();
+        }
     }
 
     public void HomeToHuman()
     {
-        ;
+        m_Home.StopShow();
+        for (int i = 0; i < m_Players.Count; ++i)
+        {
+            m_Players[i].GotoWork();
+        }
+        m_bCanBecameHome = false;
     }
     //----------------------------------------
 }

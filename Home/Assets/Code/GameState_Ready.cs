@@ -24,6 +24,11 @@ public class GameState_Ready : FSMState<GameManager>
 	{
         base.OnExit(fsm, isShutdown);
 
+
+        PlayerManager.m_Instance.CreatePlayers();
+
+        EnemyManager.m_Instance.InitEnemyManager();
+
         //Close UI
 	}
 

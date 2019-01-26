@@ -26,6 +26,8 @@ public class GameState_Home : FSMState<GameManager>
     {
         base.OnExit(fsm, isShutdown);
 
+        PlayerManager.m_Instance.HomeToHuman();
+
         //Play Effect
 
         //Stop Sound
@@ -44,6 +46,7 @@ public class GameState_Home : FSMState<GameManager>
 
     protected internal override void OnDestroy(IFSM<GameManager> fsm)
     {
+        
         base.OnDestroy(fsm);
     }
 }

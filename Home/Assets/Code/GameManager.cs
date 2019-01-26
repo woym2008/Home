@@ -15,13 +15,20 @@ public class GameManager : MonoBehaviour {
 
     FSM<GameManager> m_FSM;
 
+    public int m_Score;
 	// Use this for initialization
 	void Start () {
         m_Instance = this;
         m_FSM = new FSM<GameManager>("GameManager", this,
                                      new GameState_Ready(),
-                                     new GameState_Running()
+                                     new GameState_Running(),
+                                     new GameState_Home(),
+                                     new GameState_Over()
                                     );
+
+        m_FSM.Start<GameState_Ready>();
+        //------------------------------------
+        //ui 绑定分数m_Score
 	}
 	
 	// Update is called once per frame
@@ -42,4 +49,24 @@ public class GameManager : MonoBehaviour {
             m_FSM.Shutdown();
         }
 	}
+    //--------------------------------------------------------------------
+    public void BecameHome()
+    {
+        m_FSM.FireEvent(null, (int)GameEventState.ToHome);
+    }
+
+    public void GameOver()
+    {
+        m_FSM.ChangeState<GameState_Over>();
+    }
+    //--------------------------------------------------------------------
+    public void AddScore(int score)
+    {
+        m_Score = score;
+    }
+
+    public int GetScore()
+    {
+        return m_Score;
+    }
 }

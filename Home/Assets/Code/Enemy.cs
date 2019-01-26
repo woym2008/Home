@@ -45,6 +45,8 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
 
     public int m_Score = 100;
 
+    string LastRebound = "";
+
     void Start()
     {
         m_Speed = GameConfig.BulletBeginSpeed;
@@ -64,7 +66,7 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         if (other != null && other.gameObject != null &&
            other.gameObject.tag == "Player")
         {
-            other.gameObject.SendMessage("CollideBullet");
+            //other.gameObject.SendMessage("CollideBullet");
             Stop();
 
             DestroySelf();
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         if (other != null && other.gameObject != null &&
            other.gameObject.tag == "Home")
         {
-            other.gameObject.SendMessage("GetCoin", m_Score);
+            //other.gameObject.SendMessage("GetCoin", m_Score);
             Stop();
 
             DestroySelf();
@@ -86,41 +88,86 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         }
     }
 
-    private void Rebound(Collider2D other)
-    {
-        m_Speed += GameConfig.TimeAddSpeed;
+    private void OnTriggerStay2D(Collider2D other)
+	{
+        if (m_CanFly == false) return;
 
+        if (other != null && other.gameObject != null &&
+           other.gameObject.tag == "Player")
+        {
+            //other.gameObject.SendMessage("CollideBullet");
+            Stop();
+
+            DestroySelf();
+        }
+
+        if (other != null && other.gameObject != null &&
+           other.gameObject.tag == "Home")
+        {
+            //other.gameObject.SendMessage("GetCoin", m_Score);
+            Stop();
+
+            DestroySelf();
+        }
+
+        if (other != null && other.gameObject != null &&
+           other.gameObject.tag == "Frame")
+        {
+            Rebound(other);
+        }
+	}
+
+	private void Rebound(Collider2D other)
+    {
         float fFlag = -1.0f;
         switch(other.name)
         {
             case "Up":
                 {
-                    float lAngle = Vector3.Angle(transform.up, Vector3.right);
-                    transform.Rotate(Vector3.forward * 2.0f * lAngle * fFlag);
+                    if(LastRebound == "Up")
+                    {
+                        return;
+                    }
+                    mV = Vector3.Reflect(mV, transform.up);
+                    LastRebound = "Up";
                 }
                 break;
             case "Down":
                 {
-                    float lAngle = Vector3.Angle(transform.up, Vector3.right);
-                    transform.Rotate(Vector3.forward * 2.0f * lAngle);
+                    if (LastRebound == "Down")
+                    {
+                        return;
+                    }
+                    mV = Vector3.Reflect(mV, transform.up);
+                    LastRebound = "Down";
 
                 }
                 break;
             case "Left":
                 {
-                    float lAngle = Vector3.Angle(transform.up, Vector3.up);
-                    transform.Rotate(Vector3.forward * 2.0f * lAngle * fFlag);
+                    if (LastRebound == "Left")
+                    {
+                        return;
+                    }
+                    mV = Vector3.Reflect(mV, transform.right);
+                    LastRebound = "Left";
 
                 }
                 break;
             case "Right":
                 {
-                    float lAngle = Vector3.Angle(transform.up, Vector3.up);
-                    transform.Rotate(Vector3.forward * 2.0f * lAngle);
+                    if (LastRebound == "Right")
+                    {
+                        return;
+                    }
+                    mV = Vector3.Reflect(mV, transform.right);
+                    LastRebound = "Right";
 
                 }
                 break;
         }
+
+        m_Speed += GameConfig.TimeAddSpeed;
     }
 
 	private void OnEnable()

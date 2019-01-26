@@ -31,4 +31,14 @@ public class Player_Rect : PlayerBase
             CreateChild();
         }
     }
+
+    public override void SayHiOtherPlayer(Collider2D collision)
+    {
+        base.SayHiOtherPlayer(collision);
+        Player_Trangle trangle = collision.gameObject.GetComponent<Player_Trangle>();
+        if (trangle != null)
+        {
+            PlayerManager.m_Instance.BecameHome();
+        }
+    }
 }

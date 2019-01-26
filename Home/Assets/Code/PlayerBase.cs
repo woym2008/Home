@@ -16,6 +16,15 @@ public abstract class PlayerBase : MonoBehaviour {
 
     float m_MoveSpeed = 1;
 
+    bool m_bIsAlive = true;
+    public bool IsAlive
+    {
+        get
+        {
+            return m_bWorking;
+        }
+    }
+
     Vector3[] Dirs =
     {
         new Vector3(0,1,0),       //up
@@ -33,11 +42,14 @@ public abstract class PlayerBase : MonoBehaviour {
 
     public GameObject m_ChildPrefab;
     protected Player_Little m_Child;
+
+    bool m_bWorking = true;
    
 	// Use this for initialization
 	void Start () {
         m_MoveSpeed = GameConfig.PlayerMoveSpeed;
         m_Child = null;
+        m_bWorking = true;
 
 	}
 	
@@ -75,6 +87,10 @@ public abstract class PlayerBase : MonoBehaviour {
     float m_RotateSpeed = 5.0f;
     virtual protected void UpdateMove()
     {
+        if(!m_bWorking)
+        {
+            return;
+        }
         Vector3 currentDir = Vector2.zero;
 
         if(HasDir(Dir.Up))
@@ -118,5 +134,82 @@ public abstract class PlayerBase : MonoBehaviour {
         {
             m_Child.CreateChild(newChild.GetComponent<Player_Little>());
         }
+    }
+
+    public void Sleep()
+    {
+        m_bWorking = false;
+        this.gameObject.SetActive(false);
+    }
+
+    public void GotoWork()
+    {
+        m_bWorking = true;
+        this.gameObject.SetActive(true);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+	{
+        if (!m_bIsAlive)
+        {
+            return;
+        }
+        if (m_bWorking)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                SayHiOtherPlayer(collision);
+                //PlayerManager.m_Instance.BecameHome();
+            }
+            if (collision.gameObject.tag == "Enemy")
+            {
+                Die();
+            }
+        }
+	}
+
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+        if(!m_bIsAlive)
+        {
+            return;
+        }
+        if(m_bWorking)
+        {
+            if (collision.gameObject.tag == "Player")
+            {         
+                SayHiOtherPlayer(collision);
+                //PlayerManager.m_Instance.BecameHome();
+            }
+            if(collision.gameObject.tag == "Enemy")
+            {
+                Die();
+            }
+        }
+
+	}
+
+    virtual public void SayHiOtherPlayer(Collider2D collision)
+    {
+        ;
+    }
+
+    protected void Die()
+    {
+        m_bIsAlive = true;
+        m_bWorking = false;
+        this.gameObject.SetActive(false);
+        PlayDieAnimation();
+        PlayDieSound();
+    }
+
+    virtual protected void PlayDieAnimation()
+    {
+        ;
+    }
+
+    virtual protected void PlayDieSound()
+    {
+        ;
     }
 }
