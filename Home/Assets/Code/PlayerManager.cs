@@ -9,8 +9,10 @@ public class PlayerManager : MonoBehaviour {
 
     List<PlayerBase> m_Players;
     HomeObject m_Home;
+    PlayerLighting m_Lighting;
 
     public GameObject HomePrefab;
+    public GameObject LightingPrefab;
 
     bool m_bCanBecameHome;
 
@@ -32,10 +34,17 @@ public class PlayerManager : MonoBehaviour {
             //FindObjects();
             CreatePlayers();
         }
+        //临时这样写 应该融进整体架构 统一间隔时间
+        GameUpdate(Time.deltaTime);
 	}
 
     public void GameUpdate(float dt)
     {
+        if(m_Players == null)
+        {
+            return;
+        }
+
         int diecount = 0;
         for (int i = 0; i < m_Players.Count;++i)
         {
@@ -46,12 +55,20 @@ public class PlayerManager : MonoBehaviour {
             }
             m_Players[i].GameUpdate(dt);
         }
+        if(diecount > 0 && m_Lighting.gameObject.activeSelf)
+        {
+            m_Lighting.gameObject.SetActive(false);
+        }
         if(diecount == m_Players.Count)
         {
             GameManager.m_Instance.GameOver();
         }
 
         m_Home.GameUpdate(dt);
+
+
+        float dis = (m_Players[1].transform.position - m_Players[0].transform.position).magnitude;
+        m_Lighting.UpdateAlpha(dis);
     }
 
     //----------------------------------------
@@ -76,6 +93,10 @@ public class PlayerManager : MonoBehaviour {
         }
 
         m_Home = (Instantiate(HomePrefab) as GameObject).gameObject.GetComponent<HomeObject>();
+
+        m_Lighting = (Instantiate(LightingPrefab) as GameObject).gameObject.GetComponent<PlayerLighting>();
+        m_Lighting.target = m_Players[1].transform;
+        m_Lighting.start = m_Players[0].transform;
     }
 
     public void SetBecameHome(bool bSet)
@@ -98,6 +119,7 @@ public class PlayerManager : MonoBehaviour {
             m_Home.transform.position = homeposition;
             m_Home.ShowTime();
             GameManager.m_Instance.BecameHome();
+            m_Lighting.gameObject.SetActive(false);
         }
     }
 
@@ -109,6 +131,7 @@ public class PlayerManager : MonoBehaviour {
             m_Players[i].GotoWork();
             m_Players[i].CreateChild();
         }
+        m_Lighting.gameObject.SetActive(true);
         m_bCanBecameHome = false;
     }
     //----------------------------------------
