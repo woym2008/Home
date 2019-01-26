@@ -14,4 +14,9 @@ public class HomeObject : MonoBehaviour
 	{
 			
 	}
+
+    public void GameUpdate(float dt)
+    {
+        ;
+    }
 }

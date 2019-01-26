@@ -1,10 +1,9 @@
-﻿using PTGame.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PTGame.GameFramework.Fsm
+namespace Common.Fsm
 {
     internal sealed class FSM<T> : FSMBase, IFSM<T> where T : class
     {

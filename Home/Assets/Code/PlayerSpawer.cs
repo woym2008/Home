@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerSpawer : MonoBehaviour
 {
+    public GameObject PlayerPrefab;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -14,4 +16,9 @@ public class PlayerSpawer : MonoBehaviour
 	{
 			
 	}
+
+    public PlayerBase CreatePlayer()
+    {
+        return (Instantiate(PlayerPrefab) as GameObject).GetComponent<PlayerBase>();
+    }
 }
