@@ -38,6 +38,8 @@ public class GameState_Home : FSMState<GameManager>
 
         PlayerManager.m_Instance.HomeToHuman();
 
+        GameConfig.s_BulletBeginSpeed += GameConfig.BulletPowerUpSpeed;
+
         //Play Effect
 
         //Stop Sound

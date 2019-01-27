@@ -95,19 +95,23 @@ public abstract class PlayerBase : MonoBehaviour {
 
         if(HasDir(Dir.Up))
         {
-            currentDir += Dirs[0];
+            if(transform.position.y < PlayerManager.m_Instance.MoveLeftUp.position.y)
+                currentDir += Dirs[0];
         }
         if (HasDir(Dir.Right))
         {
-            currentDir += Dirs[1];
+            if (transform.position.x < PlayerManager.m_Instance.MoveRightDown.position.x)
+                currentDir += Dirs[1];
         }
         if (HasDir(Dir.Down))
         {
-            currentDir += Dirs[2];
+            if (transform.position.y > PlayerManager.m_Instance.MoveRightDown.position.y)
+                currentDir += Dirs[2];
         }
         if (HasDir(Dir.Left))
         {
-            currentDir += Dirs[3];
+            if (transform.position.x > PlayerManager.m_Instance.MoveLeftUp.position.x)
+                currentDir += Dirs[3];
         }
         currentDir.Normalize();
 

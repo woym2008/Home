@@ -18,6 +18,8 @@ public class GameState_Over : FSMState<GameManager>
         GameDataMgr.instance.m_CurTime = fsm.Owner.m_RunningTime;
         GameDataMgr.instance.m_CurScore = fsm.Owner.m_Score;
         m_waittime = 2.0f;
+
+        GameConfig.s_BulletBeginSpeed = GameConfig.BulletBeginSpeed;
         //Play UI
     }
 

@@ -16,6 +16,9 @@ public class PlayerManager : MonoBehaviour {
 
     bool m_bCanBecameHome;
 
+    public Transform MoveLeftUp;
+    public Transform MoveRightDown;
+
 
 	private void Awake()
 	{

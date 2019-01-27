@@ -53,7 +53,8 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
 
     void Start()
     {
-        m_Speed = GameConfig.BulletBeginSpeed;
+        //m_Speed = GameConfig.BulletBeginSpeed;
+        m_Speed = GameConfig.s_BulletBeginSpeed;
         isCoin = false;
     }
 
