@@ -198,6 +198,10 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
 	private void OnEnable()
 	{
         m_CanFly = false;
+        res_ball.SetActive(true);
+        res_coin.SetActive(false);
+        m_Speed = GameConfig.s_BulletBeginSpeed;
+        isCoin = false;
 	}
 
 	public void DestroySelf()

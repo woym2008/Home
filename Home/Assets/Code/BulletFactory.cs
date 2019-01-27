@@ -20,7 +20,7 @@ public class BulletFactory
             pEnemy.name = name;
         }
         if (!pEnemy.gameObject.activeSelf)
-            pEnemy.gameObject.SetActive(false);
+            pEnemy.gameObject.SetActive(true);
 
         return pEnemy;
     }

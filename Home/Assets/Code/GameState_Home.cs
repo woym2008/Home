@@ -18,7 +18,7 @@ public class GameState_Home : FSMState<GameManager>
         //Enable Shake
         CamShake.m_Instance.setShakeTime = GameConfig.HomeLifeTile;
         CamShake.m_Instance.shake();
-        waitcount = 2;
+        waitcount = 1;
 
         //Play Effect
 
