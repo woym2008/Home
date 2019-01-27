@@ -15,6 +15,8 @@ public class GameState_Ready : FSMState<GameManager>
 	{
         base.OnEnter(fsm);
 
+        MusicManager.GetInstance().FindController();
+
         m_Waittime = WaitTime;
 
         fsm.Owner.m_RunningTime = 0;

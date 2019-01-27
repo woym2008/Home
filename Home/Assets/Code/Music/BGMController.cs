@@ -15,6 +15,7 @@ public class BGMController : MonoBehaviour {
 	void Awake()
 	{
 		m_BGMSource = this.gameObject.GetComponent<AudioSource>();
+        DontDestroyOnLoad(this.gameObject);
 	}
 
 	// Use this for initialization
@@ -52,6 +53,7 @@ public class BGMController : MonoBehaviour {
 		}
 		if (!fileName.Equals(m_CurMusicName))
 		{
+            object test = Resources.Load("Sound/BGM/" + fileName);
 			m_CurBGMClip = Resources.Load("Sound/BGM/"+fileName) as AudioClip;
 			m_BGMSource.clip = m_CurBGMClip;
 			m_BGMSource.loop = true;
@@ -76,12 +78,20 @@ public class BGMController : MonoBehaviour {
 	
 	public void PauseBGM()
 	{
+        if(m_BGMSource == null)
+        {
+            return;
+        }
 		m_BGMSource.Pause();
 	}
 
 	public void ResumeBGM()
 	{
-		m_BGMSource.Play();
+        if (m_BGMSource == null)
+        {
+            return;
+        }
+        m_BGMSource.UnPause();
 	}
 
 	void PlayDynamicEfx(string name)

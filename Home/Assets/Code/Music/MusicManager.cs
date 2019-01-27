@@ -8,6 +8,7 @@ public class MusicManager
 	public SoundController SFXCtrl = null;
 
 	public BGMController BGMCtrl = null;
+    public BGMController BGMCtrl_High = null;
 	
 	private MusicManager () {}
 	
@@ -21,6 +22,7 @@ public class MusicManager
     public void FindController()
     {
         BGMCtrl = GameObject.Find("BGM").GetComponent<BGMController>();
+        BGMCtrl_High = GameObject.Find("BGM_High").GetComponent<BGMController>();
         SFXCtrl = GameObject.Find("SFX").GetComponent<SoundController>();
     }
 

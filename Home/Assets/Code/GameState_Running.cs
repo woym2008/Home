@@ -21,6 +21,10 @@ public class GameState_Running : FSMState<GameManager>
 
         m_HomeCoolDownTime = GameConfig.BecameHomeCooldown;
         //SoundManager
+        MusicManager.GetInstance().BGMCtrl_High.StopBGM();
+        MusicManager.GetInstance().BGMCtrl.PlayBGM("battle");
+        MusicManager.GetInstance().BGMCtrl.ResumeBGM();
+
     }
 
     protected internal override void OnExit(IFSM<GameManager> fsm, bool isShutdown)

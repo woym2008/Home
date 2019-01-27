@@ -23,6 +23,8 @@ public class GameState_Home : FSMState<GameManager>
         //Play Effect
 
         //Play Sound
+        MusicManager.GetInstance().BGMCtrl.PauseBGM();
+        MusicManager.GetInstance().BGMCtrl_High.PlayBGM("combin");
 
         m_StateTime = GameConfig.HomeLifeTile;
     }
