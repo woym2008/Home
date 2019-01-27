@@ -18,6 +18,7 @@ public class StartUI : MonoBehaviour {
 
     public void StartGame()
     {
+        MusicManager.GetInstance().SFXCtrl.PlaySound(SoundType.Start);
         SceneManager.LoadScene("MainGame");
     }
 }

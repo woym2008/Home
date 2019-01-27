@@ -236,6 +236,6 @@ public abstract class PlayerBase : MonoBehaviour {
 
     virtual protected void PlayDieSound()
     {
-        ;
+        MusicManager.GetInstance().SFXCtrl.PlaySound(SoundType.Crash);
     }
 }

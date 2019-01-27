@@ -17,6 +17,8 @@ public class EnemyManager : MonoBehaviour {
 
     int m_CurrentEmitterIndex = 0;
 
+    public bool IsHome = false;
+
 	private void Awake()
 	{
         m_Instance = this;
@@ -27,6 +29,7 @@ public class EnemyManager : MonoBehaviour {
         m_bEnableFire = false;
         m_CurrentEmitterIndex = 0;
         m_bAllDie = false;
+        IsHome = false;
 	}
 	
 	// Update is called once per frame

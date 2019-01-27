@@ -27,11 +27,14 @@ public class GameState_Home : FSMState<GameManager>
         MusicManager.GetInstance().BGMCtrl_High.PlayBGM("combin");
 
         m_StateTime = GameConfig.HomeLifeTile;
+        EnemyManager.m_Instance.IsHome = true;
     }
 
     protected internal override void OnExit(IFSM<GameManager> fsm, bool isShutdown)
     {
         base.OnExit(fsm, isShutdown);
+
+        EnemyManager.m_Instance.IsHome = false;
 
         PlayerManager.m_Instance.HomeToHuman();
 

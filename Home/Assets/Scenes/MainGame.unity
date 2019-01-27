@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyPrefab: {fileID: 114746757054910678, guid: 08cfd8a24613d4ad9ad6f54dca6b4a51,
     type: 2}
+  IsHome: 0
   m_bAllDie: 0
 --- !u!4 &943493253
 Transform:

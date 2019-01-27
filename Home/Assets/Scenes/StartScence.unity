@@ -864,9 +864,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSound: {fileID: 0}
   m_BulletDealyTime: 0
-  m_CoinSound: {fileID: 0}
-  m_StartSound: {fileID: 0}
-  m_CrashSound: {fileID: 0}
+  m_CoinSound: {fileID: 8300000, guid: b7a12133b47684374b91f40b0fa8c36f, type: 3}
+  m_StartSound: {fileID: 8300000, guid: 6b0b3bfbdbe1f49bf85c50d0514d273f, type: 3}
+  m_CrashSound: {fileID: 8300000, guid: 890386a3a981a426e9532aa8a38683f9, type: 3}
   m_GameOverSound: {fileID: 0}
 --- !u!4 &1210166792
 Transform:

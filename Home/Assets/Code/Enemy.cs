@@ -47,9 +47,14 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
 
     string LastRebound = "";
 
+    bool isCoin = false;
+    public GameObject res_ball;
+    public GameObject res_coin;
+
     void Start()
     {
         m_Speed = GameConfig.BulletBeginSpeed;
+        isCoin = false;
     }
 
     // Update is called once per frame
@@ -57,6 +62,18 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
     {
         if (!m_CanFly) return;
         transform.position = transform.position + (new Vector3(mV.x, mV.y, 0) * m_Speed * Time.deltaTime);
+
+        if(EnemyManager.m_Instance.IsHome && !isCoin)
+        {
+            res_ball.SetActive(false);
+            res_coin.SetActive(true);
+            isCoin = true;
+        }
+        else if(!EnemyManager.m_Instance.IsHome && isCoin)
+        {
+            res_ball.SetActive(true);
+            res_coin.SetActive(false);
+        }
 
         if(EnemyManager.m_Instance.IsAllDie())
         {
