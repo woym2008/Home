@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour {
 
     bool m_bCanBecameHome;
 
+
 	private void Awake()
 	{
         m_Instance = this;
@@ -55,9 +56,21 @@ public class PlayerManager : MonoBehaviour {
             }
             m_Players[i].GameUpdate(dt);
         }
-        if(diecount > 0 && m_Lighting.gameObject.activeSelf)
+        if((diecount > 0))
         {
-            m_Lighting.gameObject.SetActive(false);
+            if(m_Lighting.gameObject.activeSelf)
+                m_Lighting.gameObject.SetActive(false);
+        }
+        else
+        {
+            if(!m_bCanBecameHome && m_Lighting.gameObject.activeSelf)
+            {
+                m_Lighting.gameObject.SetActive(false);
+            }
+            else if (m_bCanBecameHome && !m_Lighting.gameObject.activeSelf)
+            {
+                m_Lighting.gameObject.SetActive(true);
+            }
         }
         if(diecount == m_Players.Count)
         {
@@ -120,6 +133,7 @@ public class PlayerManager : MonoBehaviour {
             m_Home.ShowTime();
             GameManager.m_Instance.BecameHome();
             m_Lighting.gameObject.SetActive(false);
+            m_bCanBecameHome = false;
         }
     }
 

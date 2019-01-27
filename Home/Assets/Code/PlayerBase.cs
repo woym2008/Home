@@ -21,7 +21,7 @@ public abstract class PlayerBase : MonoBehaviour {
     {
         get
         {
-            return m_bWorking;
+            return m_bIsAlive;
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class PlayerBase : MonoBehaviour {
         m_MoveSpeed = GameConfig.PlayerMoveSpeed;
         m_Child = null;
         m_bWorking = true;
-
+        m_bIsAlive = true;
 	}
 	
 	// Update is called once per frame
@@ -206,7 +206,7 @@ public abstract class PlayerBase : MonoBehaviour {
 
     protected void Die()
     {
-        m_bIsAlive = true;
+        m_bIsAlive = false;
         m_bWorking = false;
         this.gameObject.SetActive(false);
         SetChildActive(false);

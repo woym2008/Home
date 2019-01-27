@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour {
             if(m_CooldownTime <= 0)
             {
                 Fire();
-                m_CooldownTime = MaxCooldownTime;
+                m_CooldownTime = GameConfig.AddBulletSpeed;
             }
         }
 

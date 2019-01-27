@@ -14,6 +14,9 @@ public class GameState_Home : FSMState<GameManager>
     protected internal override void OnEnter(IFSM<GameManager> fsm)
     {
         base.OnEnter(fsm);
+        //Enable Shake
+        CamShake.m_Instance.setShakeTime = GameConfig.HomeLifeTile;
+        CamShake.m_Instance.shake();
 
         //Play Effect
 
@@ -40,6 +43,7 @@ public class GameState_Home : FSMState<GameManager>
         m_StateTime -= elapseSeconds;
         if (m_StateTime <= 0)
         {
+            Debug.Log("End Home");
             ChangeState<GameState_Running>(fsm);
         }
     }

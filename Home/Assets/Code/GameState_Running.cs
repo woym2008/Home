@@ -18,7 +18,6 @@ public class GameState_Running : FSMState<GameManager>
         base.OnEnter(fsm);
 
         m_HomeCoolDownTime = GameConfig.BecameHomeCooldown;
-
         //SoundManager
     }
 
