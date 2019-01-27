@@ -35,8 +35,7 @@ public class PlayerManager : MonoBehaviour {
             //FindObjects();
             CreatePlayers();
         }
-        //临时这样写 应该融进整体架构 统一间隔时间
-        GameUpdate(Time.deltaTime);
+
 	}
 
     public void GameUpdate(float dt)

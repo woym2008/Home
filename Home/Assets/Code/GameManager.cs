@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     FSM<GameManager> m_FSM;
 
     public int m_Score;
+
+    public float m_RunningTime;
 	// Use this for initialization
 	void Start () {
         m_Instance = this;
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour {
     //--------------------------------------------------------------------
     public void AddScore(int score)
     {
-        m_Score = score;
+        m_Score += score;
     }
 
     public int GetScore()

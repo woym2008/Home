@@ -17,6 +17,7 @@ public class GameState_Ready : FSMState<GameManager>
 
         m_Waittime = WaitTime;
 
+        fsm.Owner.m_RunningTime = 0;
         //Show UI
 	}
 

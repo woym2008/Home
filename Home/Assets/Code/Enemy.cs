@@ -57,6 +57,11 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
     {
         if (!m_CanFly) return;
         transform.position = transform.position + (new Vector3(mV.x, mV.y, 0) * m_Speed * Time.deltaTime);
+
+        if(EnemyManager.m_Instance.IsAllDie())
+        {
+            DestroySelf();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -75,7 +80,8 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         if (other != null && other.gameObject != null &&
            other.gameObject.tag == "Home")
         {
-            //other.gameObject.SendMessage("GetCoin", m_Score);
+            //Debug.LogError("Home");
+            other.gameObject.SendMessage("GetCoin", m_Score);
             Stop();
 
             DestroySelf();
@@ -104,7 +110,8 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         if (other != null && other.gameObject != null &&
            other.gameObject.tag == "Home")
         {
-            //other.gameObject.SendMessage("GetCoin", m_Score);
+            //Debug.LogError("Home");
+            other.gameObject.SendMessage("GetCoin", m_Score);
             Stop();
 
             DestroySelf();
@@ -178,5 +185,11 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
 	public void DestroySelf()
     {
         BulletFactory.ReleaseEnemy(this);
+    }
+
+    public void DirectDie()
+    {
+        Stop();
+        this.DestroySelf();
     }
 }

@@ -26,6 +26,7 @@ public class EnemyManager : MonoBehaviour {
 	void Start () {
         m_bEnableFire = false;
         m_CurrentEmitterIndex = 0;
+        m_bAllDie = false;
 	}
 	
 	// Update is called once per frame
@@ -90,4 +91,20 @@ public class EnemyManager : MonoBehaviour {
         m_CurrentEmitterIndex++;
     }
 
+    //Temp Func
+    public bool m_bAllDie = false;
+    public void AllDie()
+    {
+        m_bAllDie = true;
+    }
+
+    public void AllDieOver()
+    {
+        m_bAllDie = false;
+    }
+
+    public bool IsAllDie()
+    {
+        return m_bAllDie;
+    }
 }

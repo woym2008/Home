@@ -34,7 +34,28 @@ public class HomeObject : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public void GetCoin(int score)
+    {      
+        //if (m_bIsShowing)
+        {
+            //Debug.LogError("GetCoin");
+            GameManager.m_Instance.AddScore(score);
+        }
+    }
     //
+    /*
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (m_bIsShowing)
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                Enemy pEnemy = collision.gameObject.GetComponent<Enemy>();
+                GameManager.m_Instance.AddScore(pEnemy.m_Score);
+            }
+        }
+
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (m_bIsShowing)
@@ -47,5 +68,6 @@ public class HomeObject : MonoBehaviour
         }
 
     }
+    */
     //
 }

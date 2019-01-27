@@ -6,6 +6,8 @@ public class GameState_Running : FSMState<GameManager>
 {
     private float m_HomeCoolDownTime;
 
+
+
     protected internal override void OnInit(IFSM<GameManager> fsm)
     {
         base.OnInit(fsm);
@@ -40,6 +42,11 @@ public class GameState_Running : FSMState<GameManager>
         {
             PlayerManager.m_Instance.SetBecameHome(true);
         }
+
+        //临时这样写 应该融进整体架构 统一间隔时间
+        PlayerManager.m_Instance.GameUpdate(elapseSeconds);
+
+        fsm.Owner.m_RunningTime += elapseSeconds;
     }
 
     protected internal override void OnDestroy(IFSM<GameManager> fsm)

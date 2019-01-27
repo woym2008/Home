@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameState_Over : FSMState<GameManager>
 {
+    float m_waittime = 2.0f;
     protected internal override void OnInit(IFSM<GameManager> fsm)
     {
         base.OnInit(fsm);
@@ -14,6 +15,9 @@ public class GameState_Over : FSMState<GameManager>
     {
         base.OnEnter(fsm);
 
+        GameDataMgr.instance.m_CurTime = fsm.Owner.m_RunningTime;
+        GameDataMgr.instance.m_CurScore = fsm.Owner.m_Score;
+        m_waittime = 2.0f;
         //Play UI
     }
 
@@ -29,6 +33,11 @@ public class GameState_Over : FSMState<GameManager>
     protected internal override void OnUpdate(IFSM<GameManager> fsm, float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+        m_waittime -= elapseSeconds;
+        if(m_waittime <= 0)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
     protected internal override void OnDestroy(IFSM<GameManager> fsm)

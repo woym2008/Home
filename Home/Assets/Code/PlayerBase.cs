@@ -129,6 +129,7 @@ public abstract class PlayerBase : MonoBehaviour {
         {
             m_Child = newChild.GetComponent<Player_Little>();
             m_Child.ParentPoint = TailPoint;
+            m_Child.m_PlayerMain = this;
         }
         else
         {
@@ -163,10 +164,7 @@ public abstract class PlayerBase : MonoBehaviour {
                 SayHiOtherPlayer(collision);
                 //PlayerManager.m_Instance.BecameHome();
             }
-            if (collision.gameObject.tag == "Enemy")
-            {
-                Die();
-            }
+            CheckEnemy(collision);
         }
 	}
 
@@ -183,13 +181,30 @@ public abstract class PlayerBase : MonoBehaviour {
                 SayHiOtherPlayer(collision);
                 //PlayerManager.m_Instance.BecameHome();
             }
-            if(collision.gameObject.tag == "Enemy")
+            CheckEnemy(collision);
+        }
+
+	}
+
+    public void CheckEnemy(Collider2D collision)
+    {
+        if (!m_bIsAlive)
+        {
+            return;
+        }
+        if (m_bWorking)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                SayHiOtherPlayer(collision);
+                //PlayerManager.m_Instance.BecameHome();
+            }
+            if (collision.gameObject.tag == "Enemy")
             {
                 Die();
             }
         }
-
-	}
+    }
 
     virtual public void SayHiOtherPlayer(Collider2D collision)
     {

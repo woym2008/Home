@@ -9,6 +9,8 @@ public abstract class Player_Little : MonoBehaviour
 
     protected Player_Little m_Child;
 
+    public PlayerBase m_PlayerMain;
+
     float m_smooth = 2.0f;
     float m_RotateSpeed = 5.0f;
 
@@ -49,7 +51,7 @@ public abstract class Player_Little : MonoBehaviour
             m_Child = pPlayer;
             m_Child.ParentPoint = this.TailPoint;
             m_Child.transform.position = this.TailPoint.position;
-
+            m_Child.m_PlayerMain = this.m_PlayerMain;
         }
     }
 
@@ -60,5 +62,22 @@ public abstract class Player_Little : MonoBehaviour
             m_Child.SetChildActive(bset);
         }
         this.gameObject.SetActive(bset);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            m_PlayerMain.CheckEnemy(collision);
+        }
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            m_PlayerMain.CheckEnemy(collision);
+        }
+
     }
 }
