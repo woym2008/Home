@@ -40,7 +40,12 @@ public class GameManager : MonoBehaviour {
         //test
         if(Input.GetKeyDown(KeyCode.J))
         {
-            m_FSM.FireEvent(null, (int)GameEventState.ToHuman);
+            //m_FSM.FireEvent(null, (int)GameEventState.ToHuman);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
 	}
 
@@ -65,6 +70,8 @@ public class GameManager : MonoBehaviour {
     public void AddScore(int score)
     {
         m_Score += score;
+
+        MusicManager.GetInstance().SFXCtrl.PlaySound(SoundType.Coin);
     }
 
     public int GetScore()

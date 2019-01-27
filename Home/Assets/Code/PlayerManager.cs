@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Y))
         {
             //FindObjects();
-            CreatePlayers();
+            //CreatePlayers();
         }
 
 	}
