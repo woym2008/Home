@@ -5,25 +5,26 @@ public class Player_Trangle : PlayerBase
 {
     override protected void InputUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             AddDir(Dir.Up);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             AddDir(Dir.Down);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             AddDir(Dir.Left);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             AddDir(Dir.Right);
         }
+
     }
 
 	public override void SayHiOtherPlayer(Collider2D collision)

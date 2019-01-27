@@ -202,6 +202,7 @@ public class Enemy : MonoBehaviour,IRecyclableObject {
         res_coin.SetActive(false);
         m_Speed = GameConfig.s_BulletBeginSpeed;
         isCoin = false;
+        LastRebound = "";
 	}
 
 	public void DestroySelf()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common.Fsm;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public enum GameEventState{
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour {
     FSM<GameManager> m_FSM;
 
     public int m_Score;
+
+
+    public Text ScoreUI;
+    public Text TimeUI;
 
     public float m_RunningTime;
 	// Use this for initialization
@@ -47,6 +52,9 @@ public class GameManager : MonoBehaviour {
         {
             Application.Quit();
         }
+
+        ScoreUI.text = string.Format("Score:{0}", m_Score);
+        TimeUI.text = string.Format("Time:{0}", m_RunningTime.ToString("f2"));
 	}
 
 	private void OnDestroy()

@@ -5,22 +5,22 @@ public class Player_Rect : PlayerBase
 {
     override protected void InputUpdate()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             AddDir(Dir.Up);
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             AddDir(Dir.Down);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             AddDir(Dir.Left);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             AddDir(Dir.Right);
         }
